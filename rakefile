@@ -1,0 +1,89 @@
+# Setup Rakefile
+# --
+# Script to setup various dotfiles and stuff.
+# These scripts are for my own enjoyment, they may harm your system :)
+
+require 'rubygems'
+
+
+namespace :dotfiles do
+
+  desc "Download and setup vundle vimrc"
+  task :setup_vim do |t, args|
+
+    puts ""
+    puts "Setup VIM"
+    puts "---------"
+
+    # Setup Vundle
+    VUNDLE_GIT = "https://github.com/VundleVim/Vundle.vim.git"
+    VUNDLE_DEST = "~/.vim/bundle/Vundle.vim"
+   
+    verbose(false) do 
+      sh "echo \"- Remove and clone new vundle\""
+      sh "rm -rf #{VUNDLE_DEST}"
+      sh "git clone #{VUNDLE_GIT} #{VUNDLE_DEST}"
+    end
+
+    VIMRC_DEST = "~/.vimrc"
+
+    # Setup Vim
+    verbose(false) do
+      sh "echo \"- Removing any old .vimrc\""
+      sh "rm -f #{VIMRC_DEST}"
+      sh "echo \"- Setting new .vimrc\""
+      sh "ln -s $(pwd)/vim/vimrc #{VIMRC_DEST}"
+      sh "echo \"- Open up vim and type :PluginInstall to update vundle.\" "
+    end
+
+  end
+
+  desc "Setup global rake helpers"
+  task :setup_rake do |t, args|
+
+    puts ""
+    puts "Setup Rake"
+    puts "----------"
+
+    # Setup Rake
+    RAKE_DEST = "~/.rake/"
+
+    verbose(false) do
+      sh "echo \"- Remove any old .rake\""
+      sh "rm -rf #{RAKE_DEST}"
+      sh "mkdir #{RAKE_DEST}"
+      sh "echo \"- Setting new .rake\""
+      sh "ln -s $(pwd)/rake/* #{RAKE_DEST}"
+    end
+
+  end
+
+  desc "Install bash profile"
+  task :setup_bash do |t, args|
+
+    puts ""
+    puts "Setup Bash"
+    puts "----------"
+
+    #Setup Bash
+    BASH_DEST = "~/.bash_profile"
+
+    verbose(false) do
+      sh "echo \"- Remove old .bash_profile\""
+      sh "rm -rf #{BASH_DEST}"
+      sh "echo \"- Setting new .bash_profile\""
+      sh "ln -s $(pwd)/bash/bash_profile #{BASH_DEST}"
+    end 
+
+  end
+
+  desc "Setup all things"
+  task :setup_all do |t, args|
+
+    Rake::Task["dotfiles:setup_vim"].invoke
+    Rake::Task["dotfiles:setup_rake"].invoke
+    Rake::Task["dotfiles:setup_bash"].invoke
+
+  end
+
+end
