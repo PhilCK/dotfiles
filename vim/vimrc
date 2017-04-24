@@ -52,6 +52,12 @@ set linespace=1
 set mouse=a
 set cursorline
 set colorcolumn=81
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+set list
+set listchars=tab:»\ ,eol:¬
+autocmd VimResized * wincmd =
+
 
 " Clipboard
 " ---------
