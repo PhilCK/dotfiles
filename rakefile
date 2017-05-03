@@ -77,7 +77,7 @@ namespace :dotfiles do
 
   end
 
-  desc "Setup all things"
+  desc "Setup all things, excludes install tasks"
   task :setup_all do |t, args|
 
     Rake::Task["dotfiles:setup_vim"].invoke
@@ -85,5 +85,38 @@ namespace :dotfiles do
     Rake::Task["dotfiles:setup_bash"].invoke
 
   end
+
+end
+
+# Install Stuff
+# --
+# Not really anything todo with dotfiles, but just installs some common
+# things.
+
+namespace :install do
+
+
+  desc "Install some things via brew."
+  task :common do |t, args|
+ 
+    # Might actuall need to include brew here.
+
+    brew_items = [
+      "git",
+      "vim",
+      "sdl2",
+      "tree",
+    ]
+
+    brew_items.each do |i|
+
+      sh "brew install #{i}" do |ok, res|
+
+      end
+
+    end
+
+  end
+
 
 end
