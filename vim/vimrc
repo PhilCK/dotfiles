@@ -10,8 +10,12 @@ call vundle#begin()
 " --------------
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'gilligan/vim-lldb'
+if has('unix')
+  if has('mac')
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'gilligan/vim-lldb'
+  end
+end
 Plugin 'bling/vim-airline'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-rake'
@@ -34,11 +38,9 @@ Plugin 'xero/blaquemagick.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" Display
-" -------
 let &t_Co=256
 syntax enable
-colorscheme blaquemagick
+colorscheme blaquemagick 
 
 " Formatting And Settings
 " -----------------------
