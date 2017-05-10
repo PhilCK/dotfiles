@@ -4,9 +4,10 @@ parse_git_branch() {
 }
 
 export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\$(parse_git_branch)\[\033[m\]\$ "
-export GREP_OPTIONS='--color=always -n'
+export GREP_OPTIONS='--color=auto'
 export CLICOLOR=1
 export LS_COLORS='di=34:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35'
 export DYLD_LIBRARY_PATH=./
 export QT_HOME=~/Qt/5.6
-export NDK=~/Library/Android/sdk/ndk-bundle
+
+ssh-add -A 2>/dev/null;
